@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String           @id @default(uuid())
+  email           String           @unique
+  password        String
+  name            String?
+  picture         String?
+  isEmailVerified Boolean          @default(false)
+  isActive        Boolean          @default(true)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @default(now()) @updatedAt
+  token           Token[]
+  roleUser        RoleUser[]
+  permissionUser  PermissionUser[]
+}
+
+model Token {
+  id             String    @id @default(uuid())
+  user           User      @relation(fields: [userId], references: [id])
+  userId         String
+  value          String    @unique
+  code           String?
+  codeAttempts   Int?
+  userAgent      String?
+  lastIp         String?
+  asn            Int?
+  asOrganization String?
+  timezone       String?
+  continent      String?
+  country        String?
+  region         String?
+  regionCode     String?
+  city           String?
+  postalCode     String?
+  longitude      String?
+  latitude       String?
+  isEmailToken   Boolean   @default(false)
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
+}
+
+model RoleUser {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    String
+  createdAt DateTime @default(now())
+}
+
+model Role {
+  id             String           @id @default(uuid())
+  label          String           @unique
+  title          String?
+  description    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  roleUser       RoleUser[]
+  permissionRole PermissionRole[]
+}
+
+model PermissionRole {
+  id           String     @id @default(uuid())
+  role         Role       @relation(fields: [roleId], references: [id])
+  roleId       String
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String
+  createdAt    DateTime   @default(now())
+}
+
+model PermissionUser {
+  id           String     @id @default(uuid())
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String
+  createdAt    DateTime   @default(now())
+}
+
+model Permission {
+  id             String           @id @default(uuid())
+  label          String           @unique
+  title          String?
+  description    String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  permissionRole PermissionRole[]
+  permissionUser PermissionUser[]
+}

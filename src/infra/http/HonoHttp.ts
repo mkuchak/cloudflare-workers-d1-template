@@ -53,11 +53,7 @@ export class HonoHttp implements Http {
     );
   }
 
-  async listen(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext
-  ): Promise<Response> {
+  async start(request: Request, env: Env, ctx: ExecutionContext) {
     return await this.router.fetch(request, env, ctx);
   }
 }

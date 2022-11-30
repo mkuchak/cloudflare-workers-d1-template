@@ -1,8 +1,8 @@
 # Cloudflare Workers D1 Template
 
-This is a template for a Cloudflare Workers project that uses D1.
+This is a template for a [Cloudflare Workers](https://workers.cloudflare.com/) project that uses [D1](https://blog.cloudflare.com/introducing-d1/) and [Hono](https://honojs.dev/).
 
-## Easy local starting
+### Easy local starting
 
 ```bash
 # install dependencies
@@ -12,10 +12,11 @@ npm install
 npx wrangler d1 execute d1-template --local --file ./src/infra/repository/d1/migrations/0000_init.sql
 
 # run dev server (started at http://localhost:3000)
+# cloudflare workers entrypoint is `./src/workers.ts`
 npm run dev
 ```
 
-## Trying on the edge
+### Trying on the edge
 
 ```bash
 # sign in to Cloudflare
@@ -34,9 +35,25 @@ npx wrangler d1 migrations apply d1-template
 npm run dev:staging
 
 # deploy the worker
-npx wrangler publish
+npx wrangler publish --minify
 ```
 
-## Testing
+### Testing
 
 With the dev or staging server running, you can run e2e, integration and unit tests with `npm run test` command.
+
+## How about trying it in Node.js?
+
+An alternative version using [Node.js](https://nodejs.org/) with [Prisma](https://www.prisma.io/) and [Express](https://expressjs.com/) in the same codebase.
+
+```bash
+# create an environment file based on the example
+cp .env.example .env
+
+# start node dev server (started at http://localhost:3000)
+# node entrypoint is `./src/node.ts`
+npm run dev:node
+
+# or start the production server
+npm run start
+```
