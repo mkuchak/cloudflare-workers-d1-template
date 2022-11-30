@@ -14,6 +14,6 @@ export default {
     const router = new Router(http, repositoryFactory);
     router.init();
 
-    return router.http.listen(request, env, ctx);
+    return http.start(request, env, ctx);
   },
 };

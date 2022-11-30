@@ -23,9 +23,14 @@ export class HonoHttp implements Http {
     });
 
     // error handling middleware
-    this.router.onError((e: HttpError, c: Context) => {
-      c.status(e.status as StatusCode);
-      return c.json({ error: e.message });
+    this.router.onError((e: Error, c: Context) => {
+      if (e instanceof HttpError) {
+        c.status(e.status as StatusCode);
+        return c.json({ error: e.message });
+      }
+
+      c.status(500);
+      return c.json({ error: "Internal Server Error" });
     });
 
     // TODO: add CORS middleware
@@ -53,11 +58,7 @@ export class HonoHttp implements Http {
     );
   }
 
-  async listen(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext
-  ): Promise<Response> {
+  async start(request: Request, env: Env, ctx: ExecutionContext) {
     return await this.router.fetch(request, env, ctx);
   }
 }

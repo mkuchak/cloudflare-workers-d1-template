@@ -1,5 +1,7 @@
 import { nanoid } from "nanoid";
 
+type UserProps = PickProps<User>;
+
 export class User {
   id?: string = nanoid();
   email: string;
@@ -11,9 +13,9 @@ export class User {
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
 
-  constructor(props: User) {
+  constructor(props: UserProps) {
     Object.assign(this, props);
 
-    // TODO: encrypt password through a value object
+    // TODO: validate email and encrypt password through value objects
   }
 }

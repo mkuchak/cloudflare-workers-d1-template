@@ -1,5 +1,5 @@
 name = "cloudflare-workers-d1-template"
-main = "./src/index.ts"
+main = "./src/workers.ts"
 compatibility_date = "2022-11-26"
 
 [[ d1_databases ]]
