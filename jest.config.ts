@@ -9,4 +9,5 @@ export default {
   transform: {
     "^.+\\.(t|j)sx?$": "esbuild-jest",
   },
+  resolver: `<rootDir>/test/resolver.js`,
 };
