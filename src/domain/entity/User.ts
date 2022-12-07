@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 
-type UserProps = PickProps<User>;
+export type UserProps = ClassProps<User>;
 
 export class User {
   id?: string = nanoid();

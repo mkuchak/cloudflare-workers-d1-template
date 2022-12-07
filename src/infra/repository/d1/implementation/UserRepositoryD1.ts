@@ -1,4 +1,4 @@
-import { User } from "@/domain/entity/User";
+import { User, UserProps } from "@/domain/entity/User";
 import { UserRepository } from "@/domain/repository/UserRepository";
 
 export class UserRepositoryD1 implements UserRepository {
@@ -61,7 +61,7 @@ export class UserRepositoryD1 implements UserRepository {
   }
 
   async findById(id: string): Promise<User> {
-    const user: User = await this.db
+    const user: UserProps = await this.db
       .prepare(`select * from User where id = ?`)
       .bind(id)
       .first();
@@ -74,7 +74,7 @@ export class UserRepositoryD1 implements UserRepository {
   }
 
   async findByEmail(email: string): Promise<User> {
-    const user: User = await this.db
+    const user: UserProps = await this.db
       .prepare(`select * from User where email = ?`)
       .bind(email)
       .first();
@@ -91,7 +91,7 @@ export class UserRepositoryD1 implements UserRepository {
   }
 
   async findAll(): Promise<User[]> {
-    const { results: users }: { results?: User[] } = await this.db
+    const { results: users }: { results?: UserProps[] } = await this.db
       .prepare(`select * from User`)
       .all();
 
