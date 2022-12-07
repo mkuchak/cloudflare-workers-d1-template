@@ -1,6 +1,7 @@
 export default {
   clearMocks: true,
   coverageProvider: "v8",
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^#/(.*)$": "<rootDir>/test/$1",
