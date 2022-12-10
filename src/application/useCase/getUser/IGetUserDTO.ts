@@ -1,4 +1,8 @@
-export type GetUsersOutputDTO = {
+export interface IGetUserInputDTO {
+  id: string;
+}
+
+export interface IGetUserOutputDTO {
   id?: string;
   email: string;
   password: string;
@@ -8,4 +12,4 @@ export type GetUsersOutputDTO = {
   isActive?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-}[];
+}

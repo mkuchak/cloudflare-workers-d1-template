@@ -1,12 +1,36 @@
 import { CreateUserUseCase } from "@/application/useCase/createUser/CreateUserUseCase";
 import { GetUserUseCase } from "@/application/useCase/getUser/GetUserUseCase";
 import { GetUsersUseCase } from "@/application/useCase/getUsers/GetUsersUseCase";
-import { RepositoryFactory } from "@/domain/factory/RepositoryFactory";
+import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 
 export class UserController {
-  constructor(private repositoryFactory: RepositoryFactory) {}
+  constructor(private repositoryFactory: IRepositoryFactory) {}
 
-  async createUser(request: Request) {
+  async getUsers(): Promise<Callback> {
+    const getUsersUseCase = new GetUsersUseCase(this.repositoryFactory);
+
+    const output = await getUsersUseCase.execute();
+
+    return {
+      status: 200,
+      json: output,
+    };
+  }
+
+  async getUser(request: Request): Promise<Callback> {
+    const input = { id: request.params.id };
+
+    const getUserUseCase = new GetUserUseCase(this.repositoryFactory);
+
+    const output = await getUserUseCase.execute(input);
+
+    return {
+      status: 200,
+      json: output,
+    };
+  }
+
+  async createUser(request: Request): Promise<Callback> {
     const input = {
       email: request.content.email,
       password: request.content.password,
@@ -18,24 +42,9 @@ export class UserController {
 
     const output = await createUserUseCase.execute(input);
 
-    return output;
-  }
-
-  async getUser(request: Request) {
-    const input = { id: request.params.id };
-
-    const getUserUseCase = new GetUserUseCase(this.repositoryFactory);
-
-    const output = await getUserUseCase.execute(input);
-
-    return output;
-  }
-
-  async getUsers() {
-    const getUsersUseCase = new GetUsersUseCase(this.repositoryFactory);
-
-    const output = await getUsersUseCase.execute();
-
-    return output;
+    return {
+      status: 200,
+      json: output,
+    };
   }
 }

@@ -1,8 +1,8 @@
 import { HttpError } from "@/utils/HttpError";
 import express, { Request, Response, NextFunction } from "express";
-import { Http } from "./Http";
+import { IHttp } from "./IHttp";
 
-export class ExpressHttp implements Http {
+export class ExpressHttp implements IHttp {
   private readonly router: any;
 
   constructor() {
@@ -38,9 +38,9 @@ export class ExpressHttp implements Http {
       path,
       ...handlers,
       async (req: Request, res: Response): Promise<Response> => {
-        const { status, payload } = await callback(req, res);
+        const { status, json } = await callback(req);
 
-        return res.status(status).json(payload);
+        return res.status(status).json(json);
       }
     );
   }
