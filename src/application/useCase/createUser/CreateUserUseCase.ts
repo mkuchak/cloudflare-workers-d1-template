@@ -2,6 +2,7 @@ import { User } from "@/domain/entity/User";
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 import { IUserRepository } from "@/domain/repository/IUserRepository";
 import { HttpError } from "@/utils/HttpError";
+import { StatusCodes } from "http-status-codes";
 import { ICreateUserInputDTO, ICreateUserOutputDTO } from "./ICreateUserDTO";
 
 export class CreateUserUseCase {
@@ -19,7 +20,7 @@ export class CreateUserUseCase {
     );
 
     if (isEmailAlreadyRegistered) {
-      throw new HttpError("User already exists", 409);
+      throw new HttpError("User already exists", StatusCodes.CONFLICT);
     }
 
     const user = new User({ email, password, name, picture });

@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { CreateUserUseCase } from "@/application/useCase/createUser/CreateUserUseCase";
 import { GetUserUseCase } from "@/application/useCase/getUser/GetUserUseCase";
 import { GetUsersUseCase } from "@/application/useCase/getUsers/GetUsersUseCase";
@@ -12,7 +13,7 @@ export class UserController {
     const output = await getUsersUseCase.execute();
 
     return {
-      status: 200,
+      status: StatusCodes.OK,
       json: output,
     };
   }
@@ -25,7 +26,7 @@ export class UserController {
     const output = await getUserUseCase.execute(input);
 
     return {
-      status: 200,
+      status: StatusCodes.OK,
       json: output,
     };
   }
@@ -43,7 +44,7 @@ export class UserController {
     const output = await createUserUseCase.execute(input);
 
     return {
-      status: 200,
+      status: StatusCodes.CREATED,
       json: output,
     };
   }

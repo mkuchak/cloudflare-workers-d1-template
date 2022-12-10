@@ -1,6 +1,7 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 import { IUserRepository } from "@/domain/repository/IUserRepository";
 import { HttpError } from "@/utils/HttpError";
+import { StatusCodes } from "http-status-codes";
 import { IGetUserInputDTO, IGetUserOutputDTO } from "./IGetUserDTO";
 
 export class GetUserUseCase {
@@ -16,7 +17,7 @@ export class GetUserUseCase {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
-      throw new HttpError("User not found", 404);
+      throw new HttpError("User not found", StatusCodes.NOT_FOUND);
     }
 
     return user;

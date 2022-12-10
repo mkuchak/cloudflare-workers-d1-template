@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { faker } from "@faker-js/faker";
 import axios, { AxiosInstance } from "axios";
 
@@ -28,7 +29,7 @@ describe("/api/v1", () => {
 
       const { status, data } = await api.post("/users", dto);
 
-      expect(status).toBe(200);
+      expect(status).toBe(StatusCodes.CREATED);
       expect(data).toEqual({
         id: expect.any(String),
         email: dto.email,
@@ -41,7 +42,7 @@ describe("/api/v1", () => {
       await api.post("/users", dto);
       const { status, data } = await api.post("/users", dto);
 
-      expect(status).toBe(409);
+      expect(status).toBe(StatusCodes.CONFLICT);
       expect(data).toEqual({
         error: "User already exists",
       });
@@ -52,7 +53,7 @@ describe("/api/v1", () => {
     it("should show a list of users", async () => {
       const { status } = await api.get("/users");
 
-      expect(status).toBe(200);
+      expect(status).toBe(StatusCodes.OK);
     });
   });
 
@@ -63,7 +64,7 @@ describe("/api/v1", () => {
       const { data: user } = await api.post("/users", dto);
       const { status, data } = await api.get(`/users/${user.id}`);
 
-      expect(status).toBe(200);
+      expect(status).toBe(StatusCodes.OK);
       expect(data).toEqual(
         expect.objectContaining({
           id: user.id,
@@ -79,7 +80,7 @@ describe("/api/v1", () => {
         `/users/${faker.random.alphaNumeric(21)}`
       );
 
-      expect(status).toBe(404);
+      expect(status).toBe(StatusCodes.NOT_FOUND);
       expect(data).toEqual({
         error: "User not found",
       });
