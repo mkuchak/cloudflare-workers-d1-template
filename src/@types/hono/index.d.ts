@@ -19,12 +19,3 @@ interface Request {
     asOrganization: any;
   };
 }
-
-interface Callback {
-  status: number;
-  redirect?: string;
-  headers?: any;
-  cookies?: any;
-  payload?: any;
-  cache?: number;
-}

@@ -1,17 +1,17 @@
 import { User } from "@/domain/entity/User";
-import { RepositoryFactory } from "@/domain/factory/RepositoryFactory";
-import { UserRepository } from "@/domain/repository/UserRepository";
+import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
+import { IUserRepository } from "@/domain/repository/IUserRepository";
 import { HttpError } from "@/utils/HttpError";
-import { CreateUserInputDTO, CreateUserOutputDTO } from "./CreateUserDTO";
+import { ICreateUserInputDTO, ICreateUserOutputDTO } from "./ICreateUserDTO";
 
 export class CreateUserUseCase {
-  userRepository: UserRepository;
+  userRepository: IUserRepository;
 
-  constructor(private readonly repositoryFactory: RepositoryFactory) {
+  constructor(private readonly repositoryFactory: IRepositoryFactory) {
     this.userRepository = this.repositoryFactory.createUserRepository();
   }
 
-  async execute(input: CreateUserInputDTO): Promise<CreateUserOutputDTO> {
+  async execute(input: ICreateUserInputDTO): Promise<ICreateUserOutputDTO> {
     const { email, password, name, picture } = input;
 
     const isEmailAlreadyRegistered = await this.userRepository.findByEmail(

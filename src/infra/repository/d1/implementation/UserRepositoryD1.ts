@@ -1,7 +1,7 @@
 import { User, UserProps } from "@/domain/entity/User";
-import { UserRepository } from "@/domain/repository/UserRepository";
+import { IUserRepository } from "@/domain/repository/IUserRepository";
 
-export class UserRepositoryD1 implements UserRepository {
+export class UserRepositoryD1 implements IUserRepository {
   constructor(private readonly db: D1Database) {}
 
   async save(user: User): Promise<void> {

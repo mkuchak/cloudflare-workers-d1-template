@@ -1,8 +1,8 @@
 import { User } from "@/domain/entity/User";
-import { UserRepository } from "@/domain/repository/UserRepository";
+import { IUserRepository } from "@/domain/repository/IUserRepository";
 import { PrismaClient } from "@prisma/client";
 
-export class UserRepositoryPrisma implements UserRepository {
+export class UserRepositoryPrisma implements IUserRepository {
   constructor(private readonly db: PrismaClient) {}
 
   async save(user: User): Promise<void> {

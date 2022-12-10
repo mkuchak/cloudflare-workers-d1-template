@@ -1,6 +1,6 @@
 import { User } from "../entity/User";
 
-export interface UserRepository {
+export interface IUserRepository {
   save(user: User): Promise<void>;
   findById(id: string): Promise<User>;
   findByEmail(email: string): Promise<User>;

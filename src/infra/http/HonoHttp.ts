@@ -1,9 +1,9 @@
 import { HttpError } from "@/utils/HttpError";
 import { Context, Hono, Next } from "hono";
 import { StatusCode } from "hono/utils/http-status";
-import { Http } from "./Http";
+import { IHttp } from "./IHttp";
 
-export class HonoHttp implements Http {
+export class HonoHttp implements IHttp {
   private readonly router: any;
 
   constructor() {
@@ -50,10 +50,10 @@ export class HonoHttp implements Http {
       path,
       ...handlers,
       async (c: Context): Promise<Response> => {
-        const { status, payload } = await callback(c.req, c.res);
+        const { status, json } = await callback(c.req);
 
         c.status(status);
-        return c.json(payload);
+        return c.json(json);
       }
     );
   }
