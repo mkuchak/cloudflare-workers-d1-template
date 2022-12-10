@@ -50,8 +50,8 @@ An alternative version using [Node.js](https://nodejs.org/) with [Prisma](https:
 # create an environment file based on the example
 cp .env.example .env
 
-# generate Prisma client
-npx prisma generate
+# execute Prisma SQLite migration (it also generate Prisma Client)
+npx prisma migrate dev
 
 # start node dev server (started at http://localhost:3000)
 # Node.js entrypoint is `./src/node.ts`

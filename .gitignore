@@ -170,3 +170,6 @@ dist
 
 .dev.vars
 .wrangler/
+
+# prisma sqlite local database
+src/infra/repository/prisma/dev.db
