@@ -1,4 +1,4 @@
-import { IUserRepository } from "../repository/IUserRepository";
+import { IUserRepository } from "@/domain/repository/IUserRepository";
 
 export interface IRepositoryFactory {
   createUserRepository(): IUserRepository;

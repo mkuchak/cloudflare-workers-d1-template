@@ -1,7 +1,3 @@
-export interface IGetUserInputDTO {
-  id: string;
-}
-
 export interface IGetUserOutputDTO {
   id?: string;
   email: string;

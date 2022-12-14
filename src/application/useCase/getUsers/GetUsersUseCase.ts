@@ -1,6 +1,6 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 import { IUserRepository } from "@/domain/repository/IUserRepository";
-import { IGetUsersOutputDTO } from "./IGetUsersDTO";
+import { IGetUsersOutputDTO } from "@/application/useCase/getUsers/IGetUsersOutputDTO";
 
 export class GetUsersUseCase {
   userRepository: IUserRepository;

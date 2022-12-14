@@ -3,7 +3,8 @@ import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 import { IUserRepository } from "@/domain/repository/IUserRepository";
 import { HttpError } from "@/utils/HttpError";
 import { StatusCodes } from "http-status-codes";
-import { ICreateUserInputDTO, ICreateUserOutputDTO } from "./ICreateUserDTO";
+import { ICreateUserInputDTO } from "@/application/useCase/createUser/ICreateUserInputDTO";
+import { ICreateUserOutputDTO } from "@/application/useCase/createUser/ICreateUserOutputDTO";
 
 export class CreateUserUseCase {
   userRepository: IUserRepository;

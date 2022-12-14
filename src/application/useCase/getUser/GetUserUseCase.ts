@@ -2,7 +2,8 @@ import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 import { IUserRepository } from "@/domain/repository/IUserRepository";
 import { HttpError } from "@/utils/HttpError";
 import { StatusCodes } from "http-status-codes";
-import { IGetUserInputDTO, IGetUserOutputDTO } from "./IGetUserDTO";
+import { IGetUserInputDTO } from "@/application/useCase/getUser/IGetUserInputDTO";
+import { IGetUserOutputDTO } from "@/application/useCase/getUser/IGetUserOutputDTO";
 
 export class GetUserUseCase {
   userRepository: IUserRepository;

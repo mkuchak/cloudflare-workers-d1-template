@@ -1,6 +1,6 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
-import { UserController } from "../controller/UserController";
-import { IHttp } from "./IHttp";
+import { UserController } from "@/infra/controller/UserController";
+import { IHttp } from "@/infra/http/IHttp";
 
 export class Router {
   userController: UserController;

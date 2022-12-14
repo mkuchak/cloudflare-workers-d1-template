@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { User, UserProps } from "./User";
+import { UserProps, User } from "@/domain/entity/User";
 
 let dto: UserProps;
 

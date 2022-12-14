@@ -1,6 +1,6 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
-import { PrismaClient } from "@prisma/client";
-import { UserRepositoryPrisma } from "../repository/prisma/implementation/UserRepositoryPrisma";
+import { UserRepositoryPrisma } from "@/infra/repository/prisma/implementation/UserRepositoryPrisma";
+import type { PrismaClient } from "@prisma/client";
 
 export class RepositoryFactoryPrisma implements IRepositoryFactory {
   constructor(private db: PrismaClient) {}

@@ -1,7 +1,8 @@
+import { IHttp } from "@/infra/http/IHttp";
 import { HttpError } from "@/utils/HttpError";
-import { Context, Hono, Next } from "hono";
-import { StatusCode } from "hono/utils/http-status";
-import { IHttp } from "./IHttp";
+import type { Context, Next } from "hono";
+import type { StatusCode } from "hono/utils/http-status";
+import { Hono } from "hono";
 
 export class HonoHttp implements IHttp {
   private readonly router: any;

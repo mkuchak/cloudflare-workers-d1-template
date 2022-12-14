@@ -1,6 +1,7 @@
+import { IHttp } from "@/infra/http/IHttp";
 import { HttpError } from "@/utils/HttpError";
-import express, { Request, Response, NextFunction } from "express";
-import { IHttp } from "./IHttp";
+import type { Request, Response, NextFunction } from "express";
+import express from "express";
 
 export class ExpressHttp implements IHttp {
   private readonly router: any;

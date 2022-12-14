@@ -1,6 +1,6 @@
-import { RepositoryFactoryD1 } from "./infra/factory/RepositoryFactoryD1";
-import { HonoHttp } from "./infra/http/HonoHttp";
-import { Router } from "./infra/http/Router";
+import { RepositoryFactoryD1 } from "@/infra/factory/RepositoryFactoryD1";
+import { HonoHttp } from "@/infra/http/HonoHttp";
+import { Router } from "@/infra/http/Router";
 
 export default {
   async fetch(

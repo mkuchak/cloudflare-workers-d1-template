@@ -4,8 +4,3 @@ export interface ICreateUserInputDTO {
   name?: string;
   picture?: string;
 }
-
-export interface ICreateUserOutputDTO {
-  id: string;
-  email: string;
-}
