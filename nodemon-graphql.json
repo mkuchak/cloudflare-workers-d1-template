@@ -1,0 +1,7 @@
+{
+  "watch": ["./src"],
+  "ignore": ["./**/*.{test,spec}.{js,jsx,ts,tsx}"],
+  "ext": "ts,mjs,js,json,graphql",
+  "exec": "etsc --config=etsc.config.mjs && node ./dist/node-graphql.js",
+  "legacyWatch": true
+}

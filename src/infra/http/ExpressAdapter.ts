@@ -3,7 +3,7 @@ import { HttpError } from "@/utils/HttpError";
 import type { Request, Response, NextFunction } from "express";
 import express from "express";
 
-export class ExpressHttp implements IHttp {
+export class ExpressAdapter implements IHttp {
   private readonly router: any;
 
   constructor() {
@@ -28,11 +28,11 @@ export class ExpressHttp implements IHttp {
     // TODO: add observability/logging middleware
   }
 
-  join(...handlers: any[]): Promise<void> {
+  async join(...handlers: any[]): Promise<void> {
     return this.router.use(...handlers);
   }
 
-  on(method: string, path: string, ...handlers: any[]): Promise<void> {
+  async on(method: string, path: string, ...handlers: any[]): Promise<void> {
     const callback = handlers.pop();
 
     return this.router[method](

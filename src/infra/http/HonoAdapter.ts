@@ -40,11 +40,11 @@ export class HonoHttp implements IHttp {
     // TODO: check a way for this adapter to cache some routes
   }
 
-  join(...handlers: any[]): Promise<void> {
+  async join(...handlers: any[]): Promise<void> {
     return this.router.use(...handlers);
   }
 
-  on(method: string, path: string, ...handlers: any[]): Promise<void> {
+  async on(method: string, path: string, ...handlers: any[]): Promise<void> {
     const callback = handlers.pop();
 
     return this.router[method](
@@ -59,7 +59,11 @@ export class HonoHttp implements IHttp {
     );
   }
 
-  async start(request: Request, env: Env, ctx: ExecutionContext) {
+  async start(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
     return await this.router.fetch(request, env, ctx);
   }
 }

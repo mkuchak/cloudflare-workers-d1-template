@@ -1,9 +1,9 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
-import { UserController } from "@/infra/controller/UserController";
+import { UserController } from "@/infra/http/controller/UserController";
 import { IHttp } from "@/infra/http/IHttp";
 
-export class Router {
-  userController: UserController;
+export class HttpRouter {
+  private userController: UserController;
 
   constructor(
     readonly http: IHttp,

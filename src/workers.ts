@@ -1,6 +1,6 @@
 import { RepositoryFactoryD1 } from "@/infra/factory/RepositoryFactoryD1";
-import { HonoHttp } from "@/infra/http/HonoHttp";
-import { Router } from "@/infra/http/Router";
+import { HonoHttp } from "@/infra/http/HonoAdapter";
+import { HttpRouter } from "@/infra/http/HttpRouter";
 
 export default {
   async fetch(
@@ -11,8 +11,8 @@ export default {
     const http = new HonoHttp();
     const repositoryFactory = new RepositoryFactoryD1(env.DB);
 
-    const router = new Router(http, repositoryFactory);
-    router.init();
+    const httpRouter = new HttpRouter(http, repositoryFactory);
+    httpRouter.init();
 
     return http.start(request, env, ctx);
   },

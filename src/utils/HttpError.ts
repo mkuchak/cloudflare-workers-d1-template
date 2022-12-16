@@ -1,4 +1,6 @@
-export class HttpError extends Error {
+import { GraphQLError } from "graphql";
+
+export class HttpError extends GraphQLError {
   readonly status: number;
   readonly error: string;
 
