@@ -37,6 +37,7 @@ export class UserController {
       password: request.content.password,
       name: request.content.name,
       picture: request.content.picture,
+      cf: request?.cf, // get user location info if running on Cloudflare
     };
 
     const createUserUseCase = new CreateUserUseCase(this.repositoryFactory);
