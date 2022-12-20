@@ -1,5 +1,5 @@
 import { IHttp } from "@/infra/http/IHttp";
-import { HttpError } from "@/utils/HttpError";
+import { AppError } from "@/utils/AppError";
 import type { Request, Response, NextFunction } from "express";
 import express from "express";
 
@@ -50,7 +50,7 @@ export class ExpressAdapter implements IHttp {
     // error handling middleware (must be the last one)
     this.router.use(
       (e: Error, _req: Request, res: Response, _next: NextFunction) => {
-        if (e instanceof HttpError) {
+        if (e instanceof AppError) {
           return res.status(e.status).json({ error: e.message });
         }
 

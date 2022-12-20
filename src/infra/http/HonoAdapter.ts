@@ -1,5 +1,5 @@
 import { IHttp } from "@/infra/http/IHttp";
-import { HttpError } from "@/utils/HttpError";
+import { AppError } from "@/utils/AppError";
 import type { Context, Next } from "hono";
 import type { StatusCode } from "hono/utils/http-status";
 import { Hono } from "hono";
@@ -25,7 +25,7 @@ export class HonoHttp implements IHttp {
 
     // error handling middleware
     this.router.onError((e: Error, c: Context) => {
-      if (e instanceof HttpError) {
+      if (e instanceof AppError) {
         c.status(e.status as StatusCode);
         return c.json({ error: e.message });
       }
