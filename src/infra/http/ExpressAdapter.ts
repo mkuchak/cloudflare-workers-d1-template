@@ -37,9 +37,14 @@ export class ExpressAdapter implements IHttp {
 
     return this.router[method](
       path,
-      ...handlers,
+      async (req: Request, res: Response, next: NextFunction) => {
+        for (const handler of handlers) {
+          await handler(req, res);
+        }
+        next();
+      },
       async (req: Request, res: Response): Promise<Response> => {
-        const { status, json } = await callback(req);
+        const { status, json } = await callback(req, res);
 
         return res.status(status).json(json);
       }

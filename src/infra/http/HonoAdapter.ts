@@ -49,9 +49,14 @@ export class HonoHttp implements IHttp {
 
     return this.router[method](
       path,
-      ...handlers,
+      async (c: Context, next: Next) => {
+        for (const handler of handlers) {
+          await handler(c.req, c.res);
+        }
+        await next();
+      },
       async (c: Context): Promise<Response> => {
-        const { status, json } = await callback(c.req);
+        const { status, json } = await callback(c.req, c.res);
 
         c.status(status);
         return c.json(json);

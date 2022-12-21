@@ -1,20 +1,25 @@
 import { IGraphQL } from "@/infra/graphql/IGraphQL";
 import { makeExecutableSchema } from "@graphql-tools/schema";
+import { applyMiddleware } from "graphql-middleware";
 import { createYoga } from "graphql-yoga";
 
 export class YogaAdapter implements IGraphQL {
   private yoga: any;
   public typeDefs: any = {};
   readonly resolvers: any = {};
+  readonly middlewares: any = [];
 
   constructor(private server?: any) {}
 
-  mountYoga() {
+  mountServer() {
     this.yoga = createYoga<Env & ExecutionContext>({
-      schema: makeExecutableSchema({
-        typeDefs: this.typeDefs,
-        resolvers: this.resolvers,
-      }),
+      schema: applyMiddleware(
+        makeExecutableSchema({
+          typeDefs: this.typeDefs,
+          resolvers: this.resolvers,
+        }),
+        ...this.middlewares
+      ),
       graphiql: true,
     });
   }
@@ -23,8 +28,29 @@ export class YogaAdapter implements IGraphQL {
     this.typeDefs = typeDefs;
   }
 
-  async on(method: string, name: string, resolver: any): Promise<void> {
+  applyMiddleware(method: string, name: string, ...handlers: any) {
+    const type = method && method[0].toUpperCase() + method.slice(1);
+
+    for (const handler of handlers) {
+      if (!type || !name) {
+        this.middlewares.push(handler);
+      } else {
+        this.middlewares.push({
+          [type]: {
+            [name]: handler,
+          },
+        });
+      }
+    }
+  }
+
+  async on(method: string, name: string, ...handlers: any): Promise<void> {
     const type = method[0].toUpperCase() + method.slice(1);
+    const resolver = handlers.pop();
+
+    if (handlers) {
+      this.applyMiddleware(type, name, ...handlers);
+    }
 
     this.resolvers[type] = {
       ...this.resolvers[type],
@@ -41,7 +67,7 @@ export class YogaAdapter implements IGraphQL {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
-    this.mountYoga();
+    this.mountServer();
     return await this.yoga.fetch(request, env, ctx);
   }
 
@@ -49,7 +75,7 @@ export class YogaAdapter implements IGraphQL {
     if (!this.server) {
       throw new Error("Server not defined");
     }
-    this.mountYoga();
+    this.mountServer();
     this.server.on("request", this.yoga);
     this.server.listen(port, () => {
       console.log(`Server running on port ${port}`);

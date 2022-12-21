@@ -21,6 +21,9 @@ export class UserController {
   async getUser(request: Request): Promise<Callback> {
     const input = { id: request.params.id };
 
+    // @ts-ignore (example middleware)
+    console.log("example:", request?.message);
+
     const getUserUseCase = new GetUserUseCase(this.repositoryFactory);
 
     const output = await getUserUseCase.execute(input);

@@ -14,8 +14,11 @@ export class UserResolver {
     return output;
   }
 
-  async getUser(args: any) {
+  async getUser(args: any, context: any) {
     const input = { id: args.id };
+
+    // example middleware
+    console.log("message:", context?.message);
 
     const getUserUseCase = new GetUserUseCase(this.repositoryFactory);
 

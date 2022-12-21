@@ -1,5 +1,6 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
 import { IGraphQL } from "@/infra/graphql/IGraphQL";
+import { graphqlExample } from "@/infra/graphql/middleware/graphqlExample";
 import { UserResolver } from "@/infra/graphql/resolver/UserResolver";
 import { typeDefs } from "@/infra/graphql/schema";
 
@@ -16,8 +17,12 @@ export class GraphQLRouter {
   init() {
     this.graphql.on("query", "getUsers", () => this.userResolver.getUsers());
 
-    this.graphql.on("query", "getUser", (args: any) =>
-      this.userResolver.getUser(args)
+    this.graphql.on(
+      "query",
+      "getUser",
+      graphqlExample("first middleware"),
+      graphqlExample("second middleware"),
+      (args: any, context: any) => this.userResolver.getUser(args, context)
     );
 
     this.graphql.on("mutation", "createUser", (args: any, context: any) =>
