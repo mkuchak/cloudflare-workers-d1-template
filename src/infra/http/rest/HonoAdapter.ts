@@ -1,10 +1,10 @@
-import { IHttp } from "@/infra/http/IHttp";
+import { IRest } from "@/infra/http/rest/IRest";
 import { AppError } from "@/utils/AppError";
+import { Hono } from "hono";
 import type { Context, Next } from "hono";
 import type { StatusCode } from "hono/utils/http-status";
-import { Hono } from "hono";
 
-export class HonoHttp implements IHttp {
+export class HonoAdapter implements IRest {
   private readonly router: any;
 
   constructor() {
@@ -57,6 +57,7 @@ export class HonoHttp implements IHttp {
       },
       async (c: Context): Promise<Response> => {
         const { status, json } = await callback(c.req, c.res);
+        // TODO: implement a way to set cookies, headers, etc.
 
         c.status(status);
         return c.json(json);

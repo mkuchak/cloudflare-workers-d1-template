@@ -1,4 +1,4 @@
-import { IGraphQL } from "@/infra/graphql/IGraphQL";
+import { IGraphQL } from "@/infra/http/graphql/IGraphQL";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { applyMiddleware } from "graphql-middleware";
 import { createYoga } from "graphql-yoga";

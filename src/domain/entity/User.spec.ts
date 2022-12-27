@@ -1,16 +1,12 @@
 import { faker } from "@faker-js/faker";
-import { UserProps, User } from "@/domain/entity/User";
+import { User } from "@/domain/entity/User";
 
-let dto: UserProps;
-
-beforeAll(() => {
-  dto = {
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-    name: faker.name.fullName(),
-    picture: faker.image.avatar(),
-  };
-});
+const dto = {
+  email: faker.internet.email(),
+  password: faker.internet.password(),
+  name: faker.name.fullName(),
+  picture: faker.image.avatar(),
+};
 
 describe("User", () => {
   it("should create a new user", () => {

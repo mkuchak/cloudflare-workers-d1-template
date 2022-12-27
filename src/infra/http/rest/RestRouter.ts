@@ -1,13 +1,13 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
-import { UserController } from "@/infra/http/controller/UserController";
-import { IHttp } from "@/infra/http/IHttp";
-import { httpExample } from "@/infra/http/middleware/httpExample";
+import { IRest } from "@/infra/http/rest/IRest";
+import { UserController } from "@/infra/http/rest/controller/UserController";
+import { restExample } from "@/infra/http/rest/middleware/restExample";
 
-export class HttpRouter {
+export class RestRouter {
   private userController: UserController;
 
   constructor(
-    readonly http: IHttp,
+    readonly http: IRest,
     readonly repositoryFactory: IRepositoryFactory
   ) {
     this.userController = new UserController(repositoryFactory);
@@ -19,8 +19,8 @@ export class HttpRouter {
     this.http.on(
       "get",
       "/api/v1/users/:id",
-      httpExample("first middleware"),
-      httpExample("second middleware"),
+      restExample("first middleware"),
+      restExample("second middleware"),
       (request: Request) => this.userController.getUser(request)
     );
 

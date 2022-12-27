@@ -1,8 +1,8 @@
 import { IRepositoryFactory } from "@/domain/factory/IRepositoryFactory";
-import { IGraphQL } from "@/infra/graphql/IGraphQL";
-import { graphqlExample } from "@/infra/graphql/middleware/graphqlExample";
-import { UserResolver } from "@/infra/graphql/resolver/UserResolver";
-import { typeDefs } from "@/infra/graphql/schema";
+import { IGraphQL } from "@/infra/http/graphql/IGraphQL";
+import { graphqlExample } from "@/infra/http/graphql/middleware/graphqlExample";
+import { UserResolver } from "@/infra/http/graphql/resolver/UserResolver";
+import { typeDefs } from "@/infra/http/graphql/schema";
 
 export class GraphQLRouter {
   private userResolver: UserResolver;

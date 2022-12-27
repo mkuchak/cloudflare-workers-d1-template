@@ -1,7 +1,7 @@
 // import { AppError } from "@/utils/AppError";
 // import { StatusCodes } from "http-status-codes";
 
-export const httpExample = (message: string) => {
+export const restExample = (message: string) => {
   return async (request: Request) => {
     // throw new AppError(message, StatusCodes.BAD_REQUEST);
     console.log(message);

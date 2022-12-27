@@ -1,6 +1,6 @@
 import { RepositoryFactoryD1 } from "@/infra/factory/RepositoryFactoryD1";
-import { GraphQLRouter } from "@/infra/graphql/GraphQLRouter";
-import { YogaAdapter } from "@/infra/graphql/YogaAdapter";
+import { GraphQLRouter } from "@/infra/http/graphql/GraphQLRouter";
+import { YogaAdapter } from "@/infra/http/graphql/YogaAdapter";
 
 export default {
   async fetch(
@@ -8,12 +8,12 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
-    const graphql = new YogaAdapter();
+    const http = new YogaAdapter();
     const repositoryFactory = new RepositoryFactoryD1(env.DB);
 
-    const graphqlRouter = new GraphQLRouter(graphql, repositoryFactory);
-    graphqlRouter.init();
+    const httpRouter = new GraphQLRouter(http, repositoryFactory);
+    httpRouter.init();
 
-    return graphql.start(request, env, ctx);
+    return http.start(request, env, ctx);
   },
 };

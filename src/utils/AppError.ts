@@ -4,7 +4,7 @@ export class AppError extends GraphQLError {
   readonly status: number;
   readonly error: string;
 
-  constructor(message: string = "Internal Server Error", status: number = 500) {
+  constructor(message = "Internal Server Error", status = 500) {
     super(message);
 
     Object.setPrototypeOf(this, new.target.prototype);

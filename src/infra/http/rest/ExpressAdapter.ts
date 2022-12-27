@@ -1,9 +1,9 @@
-import { IHttp } from "@/infra/http/IHttp";
+import { IRest } from "@/infra/http/rest/IRest";
 import { AppError } from "@/utils/AppError";
 import type { Request, Response, NextFunction } from "express";
 import express from "express";
 
-export class ExpressAdapter implements IHttp {
+export class ExpressAdapter implements IRest {
   private readonly router: any;
 
   constructor() {
@@ -45,6 +45,7 @@ export class ExpressAdapter implements IHttp {
       },
       async (req: Request, res: Response): Promise<Response> => {
         const { status, json } = await callback(req, res);
+        // TODO: implement a way to set cookies, headers, etc.
 
         return res.status(status).json(json);
       }

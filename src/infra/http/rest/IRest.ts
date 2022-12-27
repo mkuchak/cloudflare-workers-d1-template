@@ -1,4 +1,4 @@
-export interface IHttp {
+export interface IRest {
   join(...handlers: any[]): Promise<void>;
   on(method: string, path: string, ...handlers: any[]): Promise<void>;
   start?(request: Request, env: Env, ctx: ExecutionContext): Promise<Response>;
